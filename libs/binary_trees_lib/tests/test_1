@@ -1,0 +1,4 @@
+#!/bin/bash
+
+gcc ../srcs/main.c; time ./a.out; echo 0
+while [ TRUE ]; do ./a.out; echo 0; sleep 1; done
