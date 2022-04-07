@@ -14,8 +14,5 @@ char *ms_gnl_nj(int fd)
 
 char *ms_gnl_j(int fd)
 {
-  char  *line;
-
-  line = get_next_line(fd);
-  return (line);
+  return (get_next_line(fd));
 }
