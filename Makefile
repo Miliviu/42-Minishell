@@ -5,9 +5,12 @@ LIBS			= ./libs/libft/libft.a
 INCS			= ./incs/minishell.h \
 				  ./srcs/get_next_line/get_next_line.h \
 
-SRCS			= ./srcs/main.c \
-				  ./srcs/get_next_line/get_next_line.c \
-				  ./srcs/get_next_line/get_next_line_utils.c
+GNL				= 
+
+SRCS			= ./srcs/get_next_line/get_next_line.c \
+				./srcs/get_next_line/get_next_line_utils.c \
+				./srcs/main.c \
+				./srcs/ms_utils.c \
 
 OBJS			= ${SRCS:.c=.o}
 

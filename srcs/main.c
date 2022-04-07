@@ -48,11 +48,12 @@ void    ms_read_input(t_ms *ms)
 {
   char  *pronter;
 
-  pronter = get_next_line(0);
+  pronter = ms_gnl_nj(0);
   while (!pronter)
-    pronter = get_next_line(0);
+    pronter = ms_gnl_nj(0);
   ft_putstr_fd("Has introucido el siguiente comando: \n", 1);
   ft_putstr_fd(pronter, 1);
+  ft_putstr_fd("\n", 1);
   return ;
 }
 
