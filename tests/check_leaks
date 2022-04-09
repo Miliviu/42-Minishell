@@ -1,0 +1,1 @@
+valgrind --log-file=leaks_output.file --leak-check=yes --tool=memcheck ./minishell

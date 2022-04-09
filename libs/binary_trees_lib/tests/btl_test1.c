@@ -4,8 +4,7 @@
 
 void    kill_test(void *a)
 {
-  a++;
-  a--;
+  free(a);
   return ;
 }
 
@@ -42,7 +41,7 @@ int main(void)
   t_btl_node    *bt;
   t_btl_node    *bt_aux;
   char  *aux_1;
-
+  char  *aux_2;
   srand(time(NULL));
   bt = NULL;
   int   k = -1;
@@ -59,12 +58,14 @@ int main(void)
   k = -1;
   while (++k < 1000000)
   {
-    bt_aux = btl_search_by_content(&bt, &btl_string_score, test_create_random_string(5, 26));
+    aux_2 = test_create_random_string(5, 26);
+    bt_aux = btl_search_by_content(&bt, &btl_string_score, aux_2);
     if (bt_aux)
     {
       print_string_test(bt_aux->content);
       write (1, "\n", 2);
     }
+    free(aux_2);
   }
   btl_kill_tree(bt, &kill_test);
   write(1, "FIN\n", 4);

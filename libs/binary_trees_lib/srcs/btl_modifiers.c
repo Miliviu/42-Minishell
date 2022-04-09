@@ -42,5 +42,6 @@ void    btl_kill_tree(t_btl_node *bt, void (*kill_content)(void *))
         btl_kill_tree(bt->right, kill_content);
         btl_kill_tree(bt->left, kill_content);
         kill_content(bt->content);
+        free(bt);
     }
 }
