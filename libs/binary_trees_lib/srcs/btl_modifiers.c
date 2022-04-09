@@ -1,4 +1,4 @@
-#include "../incs/btl.h"
+#include "../incs/binary_trees_lib.h"
 
 //Inserts content and gets value from evaluating the content with the function distance, this application must be injective to N
 t_btl_node    *btl_new_node_content_processed_value(void *content, unsigned long long int value)
@@ -28,8 +28,8 @@ void    btl_insert_content_processed_value(t_btl_node **bt, void *content, unsig
     return;
   }
   if (value == (*bt)->value)
-    return ;
-  if (value < (*bt)->value)
+    (*bt)->content = content;
+  else if (value < (*bt)->value)
       btl_insert_content_processed_value(&((*bt)->left), content, value);
   else
       btl_insert_content_processed_value(&((*bt)->right), content, value);

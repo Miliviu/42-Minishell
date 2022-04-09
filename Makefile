@@ -1,11 +1,10 @@
 NAME			= minishell
 
-LIBS			= ./libs/libft/libft.a
+LIBS			= ./libs/libft/libft.a \
+				  ./libs/binary_trees_lib/binary_tree_lib.a
 
 INCS			= ./incs/minishell.h \
 				  ./srcs/get_next_line/get_next_line.h \
-
-GNL				= 
 
 SRCS			= ./srcs/get_next_line/get_next_line.c \
 				./srcs/get_next_line/get_next_line_utils.c \
@@ -25,22 +24,27 @@ RM				= -rm -f
 
 ${NAME}: 		${INC} ${OBJS}
 				make all -C ./libs/libft
+				make -C ./libs/binary_trees_lib
 				${CC} -o ${NAME} ${OBJS} ${LIBS}
 
 ${NAME}_LINUX: 	${INC} ${OBJS}
 				make all -C ./libs/libft
 				cp ./libs/libft/libft.a .
-				${CC} -o ${NAME} ${OBJS}
+				make -C ./libs/libs/binary_trees_lib
+				cp ./libs/binary_trees_lib .
+				${CC} -o ${NAME} ${OBJS} ${LIBS}
 
 all:			${NAME_LIB}
 
 clean:
 				make clean -C ./libs/libft
+				make clean -C ./libs/binary_trees_lib
 				${RM} ${OBJS}
 
 fclean:			clean
 				make fclean -C ./libs/libft
-				${RM} ${NAME}
+				make fclean -C ./libs/binary_trees_lib
+				${RM} ${NAME} ${LIBS}
 
 re:				fclean all
 

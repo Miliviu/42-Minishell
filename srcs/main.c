@@ -24,8 +24,66 @@ void    ms_fatal_error(int code)
     exit(code);
 }
 
+void    ms_kill_split(char **split)
+{
+    int i;
+
+    i = -1;
+    while (split[++i])
+      free(split[i]);
+    free(split);
+}
+
+void	ms_append_env_var(t_ms *ms, char *env)
+{
+    t_env_var   *env_var;
+    char        **split;
+
+	ft_putstr_fd("Appending env_var\n", 1);
+    env_var = malloc(sizeof(t_env_var));
+    if (!env_var)
+      return ;
+	ft_putstr_fd(env, 1);
+	ft_putstr_fd("\n", 1);
+    split = ft_split(env, '=');
+	ft_putstr_fd("1\n", 1);
+    env_var->name = split[0];
+	ft_putstr_fd("2\n", 1);
+    env_var->content = split[1];
+	ft_putstr_fd("3\n", 1);
+    if (!split[1])
+    {
+      ms_kill_split(split);
+      return ;
+    }
+	ft_putstr_fd("4\n", 1);
+    free(split);
+	ft_putstr_fd("4.5\n", 1);
+    btl_insert_content_processed_value(&(ms->env), env_var, btl_string_score(env_var->name));
+	ft_putstr_fd("5\n", 1);
+}
+
+void    ms_create_paths(t_ms *ms)
+{
+  return ;
+}
+
+void	ms_read_env(t_ms *ms, char **env)
+{
+	ft_putstr_fd("Reading env\n", 1);
+    ms->env = NULL;
+    while (*env)
+    {
+		ms_append_env_var(ms, *env++);
+    }
+	ft_putstr_fd("Creating paths\n", 1);
+    ms_create_paths(ms);
+}
+
 void    ms_init_minishell(t_ms *ms, int argc, char **args, char **env)
 {
+  ms->exit = 0;
+  ms_read_env(ms, env);
   return ;
 }
 
@@ -54,12 +112,15 @@ void    ms_read_input(t_ms *ms)
   ft_putstr_fd("Has introucido el siguiente comando: \n", 1);
   ft_putstr_fd(pronter, 1);
   ft_putstr_fd("\n", 1);
+  ms->pronter = pronter;
   return ;
 }
 
 void    ms_execute(t_ms *ms)
 {
-    return ;
+  if (!ft_strncmp("exit", ms->pronter, 5))
+    ms_fatal_error(0);
+  return ;
 }
 
 void    ms_print_header(t_ms *ms)
@@ -80,8 +141,19 @@ void    ms_launch_minishell(t_ms *ms)
   }
 }
 
+void    ms_kill_env_var(void *env_var)
+{
+    t_env_var   *aux;
+
+    aux = env_var;
+    free(aux->name);
+    free(aux->content);
+    free(aux);
+}
+
 void    ms_kill_minishell(t_ms *ms)
 {
+  btl_kill_tree(ms->env, ms_kill_env_var);
   return ;
 }
 
@@ -96,7 +168,9 @@ int main(int argc, char **args, char **env)
 
   if (argc == 1)
   {
+    ft_putstr_fd("Init\n", 1);
     ms_init_minishell(&ms, argc, args, env);
+    ft_putstr_fd("Launcher\n", 1);
     ms_launch_minishell(&ms);
   }
   else

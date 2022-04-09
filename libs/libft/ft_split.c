@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-char	**kill_split(char **split, size_t j)
+char	**ft_kill_split(char **split, size_t j)
 {
 	while (j)
 		free(split[--j]);
@@ -53,7 +53,7 @@ static char	**split_aux(char const *s, char c, char **split)
 			len_word++;
 		split[s_c] = malloc(len_word + 1);
 		if (!split[s_c])
-			return (kill_split(split, s_c));
+			return (ft_kill_split(split, s_c));
 		ft_strlcpy(split[s_c++], s + j, len_word + 1);
 		j += len_word;
 		while (s[j] == c && s[j])
