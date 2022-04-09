@@ -10,6 +10,12 @@ SRCS			= ./srcs/get_next_line/get_next_line.c \
 				./srcs/get_next_line/get_next_line_utils.c \
 				./srcs/main.c \
 				./srcs/ms_utils.c \
+				./srcs/ms_init.c \
+				./srcs/ms_env_utils.c \
+				./srcs/ms_errors.c \
+				./srcs/ms_execute.c \
+				./srcs/ms_read_input.c \
+
 
 OBJS			= ${SRCS:.c=.o}
 
