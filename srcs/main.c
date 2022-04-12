@@ -32,5 +32,6 @@ int main(int argc, char **args, char **env)
     ms_launch_minishell(&ms);
   }
   ms_kill_minishell(&ms);
+  //system("leaks ./minishell");
   return (0);
 }

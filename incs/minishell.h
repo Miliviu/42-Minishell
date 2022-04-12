@@ -36,6 +36,7 @@ typedef struct  s_ms
 {
 	int	            exit;
   	char            *pronter;
+    char		    **paths;
     t_btl_node      *env;
 	t_ms_options    options;
 }   t_ms;

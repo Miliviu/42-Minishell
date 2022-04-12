@@ -16,5 +16,6 @@ void    ms_fatal_error(int code, t_ms *ms)
     ft_putstr_fd("Exit with code: \n", 1);
     if (ms)
       ms_kill_minishell(ms);
-    exit(code);
+    //system("leaks ./minishell");
+	exit(code);
 }

@@ -35,7 +35,9 @@ void    ms_kill_split(char **split)
 {
     int i;
 
-    i = -1;
+    if (!split)
+		return ;
+	i = -1;
     while (split[++i])
       free(split[i]);
     free(split);
@@ -45,6 +47,7 @@ void    ms_kill_minishell(t_ms *ms)
 {
   btl_kill_tree(ms->env, &ms_kill_env_var);
   free(ms->pronter);
+  ms_kill_split(ms->paths);
   return ;
 }
 

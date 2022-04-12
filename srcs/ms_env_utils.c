@@ -17,9 +17,7 @@ void    ms_kill_env_var(void *env_var)
 {
     t_env_var   *aux;
 
-    write(1, "hola\n", 5);
     aux = env_var;
-    ft_putstr_fd(aux->name, 1);
     free(aux->name);
     free(aux->content);
     free(env_var);
