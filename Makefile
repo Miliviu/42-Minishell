@@ -58,7 +58,7 @@ clean:
 fclean:			clean
 				make fclean -C ./libs/libft
 				make fclean -C ./libs/binary_trees_lib
-				${RM} ${NAME} ${NAME}_linux ${NAME}_leaks ${LIBS}
+				${RM} ${NAME} ${NAME}_linux ${NAME}_leaks ${LIBS} leaks_output.file
 
 re:				fclean all
 

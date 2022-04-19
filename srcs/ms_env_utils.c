@@ -31,16 +31,38 @@ void    ms_kill_env_var(void *env_var)
  *
  * */
 
+char	**ms_split_one(const char *s, char c)
+{
+	int	i;
+	char	**split;
+	i = 0;
+	while (s[i] && s[i] != c)
+		i++;
+	if (!s[i])
+	{
+		split = malloc(8 * 2);
+		split[0] = ft_strdup(s);
+		split[1] = 0;
+		return (split);
+	}
+	split = malloc(8 * 3);
+	split[0] = malloc(i + 1);
+	ft_strlcpy(split[0], s, i);
+	split[1] = ft_strdup(s + i + 1);
+	split[2] = 0;
+	return (split);
+}
+
 void	ms_append_env_var(t_ms *ms, char *env)
 {
     t_env_var   *env_var;
     char        **split;
 
 	ft_putstr_fd("Appending env_var\n", 1);
-    env_var = malloc(sizeof(t_env_var));
-    if (!env_var)
-      return ;
-    split = ft_split(env, '=');
+	env_var = malloc(sizeof(t_env_var));
+    	if (!env_var)
+      		return ;
+    	split = ms_split_one(env, '=');
     if (!split[1])
     {
       free(env_var);
