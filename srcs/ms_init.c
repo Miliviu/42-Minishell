@@ -36,6 +36,6 @@ void    ms_init_minishell(t_ms *ms, int argc, char **args, char **env)
   ft_putstr_fd("Reading env\n", 1);
   ms_read_env(ms, env);
   ft_putstr_fd("Creating paths\n", 1);
-  //ms_create_paths(ms);
+  ms_create_paths(ms);
   return ;
 }

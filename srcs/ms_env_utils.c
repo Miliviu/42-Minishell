@@ -51,7 +51,7 @@ char	**ms_split_one(const char *s, char c)
 	}
 	split = malloc(8 * 3);
 	split[0] = malloc(i + 1);
-	ft_strlcpy(split[0], s, i);
+	ft_strlcpy(split[0], s, i + 1);
 	split[1] = ft_strdup(s + i + 1);
 	split[2] = 0;
 	return (split);
@@ -77,7 +77,7 @@ void	ms_append_env_var(t_ms *ms, char *env)
     	env_var->name = split[0];
     	env_var->content = split[1];
     	free(split);
-    	if (0 && btl_search_by_content(&(ms->env), &btl_string_score, env_var->name))
+    	if (btl_search_by_content(&(ms->env), &btl_string_score, env_var->name))
 	{
 		free(env_var->name);
 		free(env_var->content);

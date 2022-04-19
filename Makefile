@@ -48,7 +48,7 @@ ${NAME}_leaks: 			${INC} ${SRCS}
 				${CC} -o ${NAME}_leaks ${SRCS} ${LIBS} ${FSANITIZE}
 
 
-all:			${NAME_LIB}
+all:			${NAME}
 
 clean:
 				make clean -C ./libs/libft
