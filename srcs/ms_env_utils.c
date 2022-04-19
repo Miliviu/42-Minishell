@@ -9,6 +9,10 @@ void    ms_print_env_var(void *env_var)
     ft_putstr_fd(aux->name,1);
     ft_putstr_fd("=",1);
     ft_putstr_fd(aux->content,1);
+    ft_putstr_fd("->",1);
+    printf("\n%p", aux);
+    printf("\n%p", aux->name);
+    printf("\n%p", aux->content);
 }
 
 
@@ -60,17 +64,25 @@ void	ms_append_env_var(t_ms *ms, char *env)
 
 	ft_putstr_fd("Appending env_var\n", 1);
 	env_var = malloc(sizeof(t_env_var));
-    	if (!env_var)
+    	printf("string %s\n pointer %p\n\n", env, env_var);
+	if (!env_var)
       		return ;
-    	split = ms_split_one(env, '=');
-    if (!split[1])
-    {
-      free(env_var);
-      ms_kill_split(split);
-      return ;
-    }
-    env_var->name = split[0];
-    env_var->content = split[1];
-    free(split);
-    btl_insert_content_processed_value(&(ms->env), env_var, btl_string_score(env_var->name));
+	split = ms_split_one(env, '=');
+    	if (!split[1])
+    	{
+      		free(env_var);
+      		ms_kill_split(split);
+      		return ;
+    	}
+    	env_var->name = split[0];
+    	env_var->content = split[1];
+    	free(split);
+    	if (0 && btl_search_by_content(&(ms->env), &btl_string_score, env_var->name))
+	{
+		free(env_var->name);
+		free(env_var->content);
+		free(env_var);
+		return ;
+	}
+	btl_insert_content_processed_value(&(ms->env), env_var, btl_string_score(env_var->name));
 }
