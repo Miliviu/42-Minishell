@@ -9,14 +9,8 @@ void    ms_print_env_var(void *env_var)
     ft_putstr_fd(aux->name,1);
     ft_putstr_fd("=",1);
     ft_putstr_fd(aux->content,1);
-    ft_putstr_fd("->",1);
-    printf("\n%p", aux);
-    printf("\n%p", aux->name);
-    printf("\n%p", aux->content);
 }
 
-
-//Los frees de esta funcion no funcionan porque xd
 void    ms_kill_env_var(void *env_var)
 {
     t_env_var   *aux;
@@ -26,14 +20,6 @@ void    ms_kill_env_var(void *env_var)
     free(aux->content);
     free(env_var);
 }
-
-/*
- *  MINISHELL EXIT CODES
- *
- *  0 - Sucess
- *  1 - Malloc error
- *
- * */
 
 char	**ms_split_one(const char *s, char c)
 {
@@ -62,9 +48,7 @@ void	ms_append_env_var(t_ms *ms, char *env)
     t_env_var   *env_var;
     char        **split;
 
-	ft_putstr_fd("Appending env_var\n", 1);
 	env_var = malloc(sizeof(t_env_var));
-    	printf("string %s\n pointer %p\n\n", env, env_var);
 	if (!env_var)
       		return ;
 	split = ms_split_one(env, '=');
@@ -79,6 +63,11 @@ void	ms_append_env_var(t_ms *ms, char *env)
     	free(split);
     	if (btl_search_by_content(&(ms->env), &btl_string_score, env_var->name))
 	{
+		ft_putstr_fd("new", 1);
+		ms_print_env_var(env_var);
+		ft_putstr_fd("\nold", 1);
+		ms_print_env_var(btl_search_by_content(&(ms->env), &btl_string_score, env_var->name)->content);
+		ft_putstr_fd("\n", 1);
 		free(env_var->name);
 		free(env_var->content);
 		free(env_var);

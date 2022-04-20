@@ -9,14 +9,16 @@ void    ms_create_paths(t_ms *ms)
 
 	i = -1;
 	env_var = btl_search_by_content(&(ms->env), &btl_string_score, "PATH")->content;
+	if (!env_var)
+		ms_fatal_error(3, ms);	
 	all_paths = ft_split(env_var->content, ':');
-	//
+	/*
 	while (all_paths[++i])
 	{
 		ft_putstr_fd(all_paths[i], 1);
 		ft_putstr_fd("\n", 1);
 	}
-	//
+	*/
 	ms->paths = all_paths;
 	return ;
 }
