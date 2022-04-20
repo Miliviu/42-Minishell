@@ -48,16 +48,18 @@ int main(void)
   while (++k < 100)
   {
     aux_1 = test_create_random_string(5, 26);
-    btl_insert_content_from_distance(&bt, aux_1, &btl_str_distance, &kill_test);
+    btl_insert_content_processed_value(&bt, aux_1, btl_string_score(aux_1));
   }
-  btl_print_in_order(bt, &print_string_test);
+  btl_print_in_order_value(bt);
+  btl_print_in_order_content(bt, &print_string_test);
+  btl_print_in_order_content_value(bt, &print_string_test);
   write (1, "\n\n", 2);
   write(1, "COINCIDENCIAS\n", 14);
   k = -1;
   while (++k < 1000000)
   {
     aux_2 = test_create_random_string(5, 26);
-    bt_aux = btl_search_by_distance(&bt, aux_2, &btl_str_distance);
+    bt_aux = btl_search_by_content(&bt, &btl_string_score, aux_2);
     if (bt_aux)
     {
       print_string_test(bt_aux->content);

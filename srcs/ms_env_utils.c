@@ -21,6 +21,17 @@ void    ms_kill_env_var(void *env_var)
     free(env_var);
 }
 
+int		ms_env_var_distance(void *v1, void *v2)
+{
+	if (!v1 && !v2)
+		return (0);
+	if (!v1)
+		return (-1);
+	if (!v2)
+		return (1);
+	return (btl_str_distance(((t_env_var *) v1)->name, ((t_env_var *) v2)->name));
+}
+
 char	**ms_split_one(const char *s, char c)
 {
 	int	i;
@@ -61,17 +72,17 @@ void	ms_append_env_var(t_ms *ms, char *env)
     	env_var->name = split[0];
     	env_var->content = split[1];
     	free(split);
-    	if (btl_search_by_content(&(ms->env), &btl_string_score, env_var->name))
+    	if (btl_search_by_distance(&(ms->env), env_var, &ms_env_var_distance))
 	{
 		ft_putstr_fd("new", 1);
 		ms_print_env_var(env_var);
 		ft_putstr_fd("\nold", 1);
-		ms_print_env_var(btl_search_by_content(&(ms->env), &btl_string_score, env_var->name)->content);
+		ms_print_env_var(btl_search_by_distance(&(ms->env), env_var, &ms_env_var_distance)->content);
 		ft_putstr_fd("\n", 1);
 		free(env_var->name);
 		free(env_var->content);
 		free(env_var);
 		return ;
 	}
-	btl_insert_content_processed_value(&(ms->env), env_var, btl_string_score(env_var->name));
+	btl_insert_content_from_distance(&(ms->env), env_var, &ms_env_var_distance, &ms_kill_env_var);
 }

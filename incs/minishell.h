@@ -60,6 +60,7 @@ void    ms_init_minishell(t_ms *ms, int argc, char **args, char **env);
 void	ms_append_env_var(t_ms *ms, char *env);
 void    ms_kill_env_var(void *env_var);
 void    ms_print_env_var(void *env_var);
+int		ms_env_var_distance(void *v1, void *v2);
 
 /*  ./srcs/ms_errors.c   */
 void    ms_fatal_error(int code, t_ms *ms);

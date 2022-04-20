@@ -1,20 +1,16 @@
 #include "../incs/binary_trees_lib.h"
 
-t_btl_node      *btl_search_by_value(t_btl_node **bt, unsigned long long int value)
+t_btl_node      *btl_search_by_distance(t_btl_node **bt, void *content, int (*distance)(void *, void *))
 {
-  if (!value)
-    return (NULL);
+  int	dis;
+	
   if (!(*bt))
     return (NULL);
-  if ((*bt)->value == value)
+  dis = distance((*bt)->content, content);
+  if (!dis)
     return (*bt);
-  else if ((*bt)->value > value)
-    return (btl_search_by_value(&((*bt)->left), value));
+  else if (dis == 1)
+    return (btl_search_by_distance(&((*bt)->left), content, distance));
   else
-    return (btl_search_by_value(&((*bt)->right), value));
-}
-
-t_btl_node      *btl_search_by_content(t_btl_node **bt, unsigned long long int (*distance)(void *), void *content)
-{
-  return (btl_search_by_value(bt, distance(content)));
+    return (btl_search_by_distance(&((*bt)->right), content, distance));
 }

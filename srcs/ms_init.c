@@ -5,10 +5,13 @@ void    ms_create_paths(t_ms *ms)
 {
 	char		**all_paths;
 	t_env_var	*env_var;
+	t_env_var	aux;
 	int			i;
 
+	aux.name = ft_strdup("PATH");
 	i = -1;
-	env_var = btl_search_by_content(&(ms->env), &btl_string_score, "PATH")->content;
+	env_var = btl_search_by_distance(&(ms->env), &aux, &ms_env_var_distance)->content;
+	free(aux.name);
 	if (!env_var)
 		ms_fatal_error(3, ms);	
 	all_paths = ft_split(env_var->content, ':');
